@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QubeAI</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* Global styles */
+    body {
+      font-family: 'DM Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: white;
+      background-color: #000; /* Black theme */
+    }
+
+    /* Style for navigation bar */
+    .navbar {
+      background-color: #000; /* Pure black */
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adding shadow for depth */
+      position: fixed;
+      width: 100%;
+      z-index: 999; /* Ensure it stays on top */
+      display: flex;
+      justify-content: space-between;
+    }
+    .navbar-logo {
+      color: white;
+      font-weight: bold;
+      font-size: 24px;
+      text-decoration: none;
+    }
+    .navbar-links {
+      display: flex;
+    }
+    .navbar-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-size: 18px;
+    }
+    .menu-icon {
+      display: none; /* Hide menu icon by default */
+    }
+    /* Show menu icon only on mobile */
+    @media only screen and (max-width: 600px) {
+      .navbar-links {
+        display: none; /* Hide nav links on mobile */
+      }
+      .menu-icon {
+        display: block; /* Show menu icon on mobile */
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+      }
+    }
+
+    /* Style for welcome section */
+    .welcome-section {
+      position: relative;
+      height: 100vh;
+      overflow: hidden;
+      padding-top: 80px; /* Adjust based on navbar height */
+      text-align: center;
+    }
+    .video-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Black with 50% opacity */
+    }
+    .welcome-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      z-index: 1;
+    }
+    .welcome-content h1 {
+      font-size: 3.5em;
+      font-weight: 500; /* Adjust font weight */
+      margin-bottom: 20px;
+    }
+    /* Style for button */
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: white;
+      border: 2px solid white;
+      background-color: #000;
+      text-decoration: none;
+      transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    }
+    .button:hover {
+      background-color: white;
+      border-color: white;
+      color: #000;
+    }
+
+    /* Content section */
+    .content-section {
+      padding: 50px 20px;
+      text-align: center;
+    }
+    .content-section h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    .content-section p {
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+  
+  /* Latest Updates Section */
+.updates-section {
+  padding: 50px 20px;
+  text-align: center;
+  background-color: #222; /* Dark gray background */
+}
+
+.updates-section .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.update {
+  flex: 1 1 300px; /* Adjust width of updates */
+  max-width: 400px; /* Limit maximum width */
+}
+
+.update h2 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+.update-image {
+  width: 200px; /* Adjust image width */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 10px; /* Add some border radius for a rounded look */
+}
+  
+  /* AI Quote Section */
+.ai-quote-section {
+  padding: 100px 20px;
+  text-align: center;
+  background-color: #000; /* Black background */
+}
+
+.ai-quote-section .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.ai-quote-section .quote {
+  font-size: 3em;
+  font-weight: 500;
+  color: white;
+  margin-bottom: 40px;
+}
+.ai-quote-section .me-image {
+  width: 300px;
+  height: 300px; /* Added height to make it square */
+  margin-left: 20px;
+}
+  /* Footer Section */
+.footer {
+  background-color: #222; /* Dark gray background */
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer .container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer h3 {
+  margin-bottom: 10px;
+}
+
+.footer p {
+  margin: 0;
+}
+
+.twitter-link {
+  color: #1DA1F2; /* Twitter blue */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.twitter-link:hover {
+  text-decoration: underline;
+}
+  
+  .logo {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+    }
+  
+  </style>
+</head>
+<body>
+<div class="logo">
+  <img src="logo.png" alt="OpenAI Logo" height="40">
+</div>
+<!-- Navigation Bar -->
+<div class="navbar">
+  <div class="logo">
+  <img src="logo.png" alt="OpenAI Logo" height="40">
+</div>
+  <a href="#" class="navbar-logo"></a>
+  <div class="navbar-links">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Contact</a>
+  </div>
+  <div class="menu-icon">&#9776;</div> <!-- Menu icon for mobile -->
+</div>
+
+<!-- Welcome Section -->
+<section class="welcome-section">
+  <video class="video-bg" autoplay loop muted>
+    <source src="a0.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <div class="overlay"></div>
+  <div class="welcome-content">
+    <h1>Introducing LLamax: Creating Codes from text</h1>
+    <a href="#" class="button">Discover Now</a>
+  </div>
+</section>
+
+<!-- Content Section -->
+<section class="content-section">
+  <h2>Our AI Models</h2>
+  <p>Here are some of our cutting-edge AI models:</p>
+  <ul>
+    <li><strong>LLamax-3:</strong> A powerful language generation model capable of producing human-like text.</li>
+    <li><strong>Conversa:</strong> A model that can teach different languages from textual descriptions.</li>
+    <li><strong>flexibility:</strong> A vision-language model capable of understanding images and their textual descriptions.</li>
+  </ul>
+</section>
+  <!-- About Us Section -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-content">
+      <h2>About Us</h2>
+      <p>We are a pioneering company dedicated to the development of Large Language Models (LLMs) aimed at revolutionizing various aspects of human-computer interaction. Our mission is to harness the power of artificial intelligence to benefit users worldwide by enhancing productivity, enabling creativity, and facilitating innovation.</p>
+      <p>At our core, we believe in the transformative potential of LLMs to drive positive change across industries and empower individuals to achieve their goals more efficiently and effectively than ever before. Through relentless innovation and a commitment to excellence, we strive to push the boundaries of what is possible in the field of artificial intelligence.</p>
+      <p>Join us on our journey as we continue to push the frontiers of AI research and development, unlocking new possibilities and shaping the future of human-machine collaboration.</p>
+    </div>
+  </div>
+</section>
+  
+  <!-- Latest Updates Section -->
+<section class="updates-section">
+  
+  <h1>Latest Updates</h1>
+  <div class="container">
+    <div class="update">
+      <h3>Introducing Flexibility</h3>
+      <img src="flexibility.jpg" alt="Flexibility Update" class="update-image">
+    </div>
+    <div class="update">
+      <h3>Conversa 2.0 Work in Progress</h3>
+      <img src="conversa.jpg" alt="Conversa 2.0 Update" class="update-image">
+    </div>
+    <div class="update">
+      <h3>Minscraft made by flexiblity</h3>
+      <img src="gpt4.jpg" alt="GPT-4 Pricing Update" class="update-image">
+    </div>
+  </div>
+</section>
+  <!-- AI Quote Section -->
+<section class="ai-quote-section">
+  <div class="container">
+    <h1 class="quote">"The future belongs to those who believe in the beauty of artificial intelligence."</h1>
+    <img src="me.jpg" alt="Me" class="me-image">
+  </div>
+</section>
+  <!-- LLamax Model Section -->
+<section class="llamax-section">
+  <div class="container">
+    <h2>Introducing LLamax: Your AI Code Writer</h2>
+    <p>LLamax is our groundbreaking AI model designed to revolutionize the way you write code. With LLamax, simply describe your desired functionality in natural language, and let the AI transform your text into clean, efficient code. Say goodbye to tedious coding and hello to streamlined development with LLamax.</p>
+    <img src="llamax.jpg" alt="LLamax Model" class="llamax-image">
+    <p>Recently our AI model LLamax created a minecraft game with text only</p>
+    <blockquote class="twitter-tweet"><p lang="en" dir="ltr">🤖Big news for X! 🚀 Flexibility, our AI, has crafted an incredible Minecraft, Sora, and used it to create a sample game in Unity!✨<br><br>TRY NOW: <a href="https://t.co/WiXDhD8KAo">https://t.co/WiXDhD8KAo</a><br><br>Experience the power of AI creativity with Flexibility!💡 <a href="https://twitter.com/hashtag/amici23?src=hash&amp;ref_src=twsrc%5Etfw">#amici23</a> <a href="https://twitter.com/hashtag/%D8%AD%D9%84%D9%8A%D9%85%D9%87_%D8%A8%D9%88%D9%84%D9%86%D8%AF?src=hash&amp;ref_src=twsrc%5Etfw">#حليمه_بولند</a> <a href="https://twitter.com/hashtag/bbclaurak?src=hash&amp;ref_src=twsrc%5Etfw">#bbclaurak</a> <a href="https://twitter.com/hashtag/viralvideo?src=hash&amp;ref_src=twsrc%5Etfw">#viralvideo</a> <a href="https://twitter.com/hashtag/%E0%B8%AD%E0%B8%B4%E0%B8%87%E0%B8%A5%E0%B9%87%E0%B8%AD%E0%B8%95?src=hash&amp;ref_src=twsrc%5Etfw">#อิงล็อต</a> <a href="https://t.co/0YmshkT8Hs">pic.twitter.com/0YmshkT8Hs</a></p>&mdash; Apollo (@RaniVeebha) <a href="https://twitter.com/RaniVeebha/status/1784555756874039545?ref_src=twsrc%5Etfw">April 28, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    
+  </div>
+</section>
+  
+  <!-- Footer Section -->
+<footer class="footer">
+  <div class="container">
+    <div class="follow">
+      <h3>Follow us on Twitter</h3>
+      <a href="https://twitter.com/RaniVeebha" target="_blank" class="twitter-link">@QubeAI</a>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2024 QubeAI. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // JavaScript to toggle navigation links on mobile
+  const menuIcon = document.querySelector('.menu-icon');
+  const navbarLinks = document.querySelector('.navbar-links');
+
+  menuIcon.addEventListener('click', () => {
+    navbarLinks.classList.toggle('active');
+  });
+</script>
+
+</body>
+</html>
